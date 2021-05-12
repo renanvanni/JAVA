@@ -6,8 +6,6 @@ public class Pessoa {
 	private String cpf;
 	private int idade;
 	
-	
-	
 	public String getNome() {
 		return nome;
 	}

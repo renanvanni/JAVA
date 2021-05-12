@@ -2,21 +2,21 @@ package br.versaoalfa;
 
 public class Acessibilidade extends Familia{
 
-	private boolean educacao, internet;
+	private String educacao, internet;
 
-	public boolean isEducacao() {
+	public String getEducacao() {
 		return educacao;
 	}
 
-	public void setEducacao(boolean educacao) {
+	public void setEducacao(String educacao) {
 		this.educacao = educacao;
 	}
 
-	public boolean isInternet() {
+	public String getInternet() {
 		return internet;
 	}
 
-	public void setInternet(boolean internet) {
+	public void setInternet(String internet) {
 		this.internet = internet;
 	}
 }

@@ -4,15 +4,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class Metodo extends Acessibilidade{
+public class Metodo extends /*Herança*/ Acessibilidade{
 	
 	Scanner ler = new Scanner(System.in);
 	Acessibilidade aces = new Acessibilidade();
-	ArrayList<String> teste = new ArrayList();
+	ArrayList<String> teste = new ArrayList();//Colletions
 	
 	public void cadastrarPessoa() {
 		
-		for(int i=0; i<=1;i++) {
 		System.out.println("==Pesquisa IBGE==\n");
 		System.out.println("Digite seu primeiro nome: ");
 		aces.setNome(ler.next());
@@ -23,9 +22,7 @@ public class Metodo extends Acessibilidade{
 		System.out.println("Digite sua idade: ");
 		aces.setIdade(ler.nextInt());
 		
-		teste.add(aces.getNome() +";"+ aces.getIdade() + ";" + aces.getCpf() + ";" + aces.getQtdPessoas() + ";" + aces.isInternet());
 		cadastrarFamilia();
-		}
 	}
 	public void cadastrarFamilia() {
 		System.out.println("Digite a quantidade de pessoas na casa: ");
@@ -55,9 +52,9 @@ public class Metodo extends Acessibilidade{
 		System.out.println("Tem acesso a educação? (Sim = 1/Não = 2)");
 		i = ler.nextInt();
 		if(i == 1) {
-			aces.setEducacao(true);
+			aces.setEducacao("Sim");
 		}else if (i == 2){
-			aces.setEducacao(false);
+			aces.setEducacao("Não");
 		}else {
 			System.out.println("Opção inválida");
 			return;
@@ -65,26 +62,14 @@ public class Metodo extends Acessibilidade{
 		System.out.println("Tem acesso a internet? (Sim = 1/Não = 2)");
 		d = ler.nextInt();
 		if(d == 1) {
-			aces.setInternet(true);
+			aces.setInternet("Sim");
 		}else if (d == 2){
-			aces.setInternet(false);
+			aces.setInternet("Não");
 		}else {
 			System.out.println("Opção inválida");
 			return;
 		}
-		System.out.println(aces.getNome());
-		System.out.println(aces.getIdade());
-		System.out.println(aces.getCpf());
-		System.out.println(aces.getQtdPessoas());
-		System.out.println(aces.getRendaFamiliar());
-		System.out.println(aces.getGeladeira());
-		System.out.println(aces.getCarro());
-		System.out.println(aces.getTelevisao());
-		System.out.println(aces.getComputador());
-		System.out.println(aces.isEducacao());
-		System.out.println(aces.isInternet());
-		
-		metodo2();
+		calculaVunerabilidade();
 	}
 	public void metodo2() {
 		int i;
@@ -93,10 +78,67 @@ public class Metodo extends Acessibilidade{
 		i = ler.nextInt();
 		
 		if(i == 1) {
+			limpaTela();
 			cadastrarPessoa();
-		}else {
+		}else if(i != 1){
+			/*System.out.println("Nome: " + aces.getNome() + "\n");
+			System.out.println("Idade: " + aces.getIdade());
+			System.out.println(aces.getCpf());
+			System.out.println(aces.getQtdPessoas());
+			System.out.println(aces.getRendaFamiliar());
+			System.out.println(aces.getGeladeira());
+			System.out.println(aces.getCarro());
+			System.out.println(aces.getTelevisao());
+			System.out.println(aces.getComputador());
+			System.out.println(aces.isEducacao());
+			System.out.println(aces.isInternet());*/
+			limpaTela();//Gambiarra
 			System.out.println(teste);
 			return;
 		}
+	}
+	public void calculaVunerabilidade() {
+		double renda = aces.getRendaFamiliar();
+		int qtdPessoas = aces.getQtdPessoas();
+		String educacao = aces.getEducacao(), internet = aces.getInternet();
+		
+		if(renda < 1100 && educacao == "Não" && internet == "Não") {
+			System.out.println("Ajuda urgente!");
+			System.out.println("Prioridade 3");
+		}else if(renda < 1100 && educacao == "Não" && internet == "Sim") {
+			System.out.println("Prioridade 3");
+		}else if(renda < 1100 && educacao == "Sim" && internet == "Não") {
+			System.out.println("Prioridade 3");
+		}else if(renda < 1100 && educacao == "Sim" && internet == "Sim") {
+			System.out.println("Prioridade 3");
+		}else if(renda <= 1600 && educacao == "Não" && internet == "Não" && qtdPessoas >= 5 && renda >= 1101) {
+			System.out.println("Prioridade 2");
+		}else if(renda <= 1600 && educacao == "Não" && internet == "Sim" && qtdPessoas >= 5 && renda >= 1101) {
+			System.out.println("Prioridade 2");
+		}else if(renda <= 1600 && educacao == "Sim" && internet == "Não" && qtdPessoas >= 5 && renda >= 1101) {
+			System.out.println("Prioridade 1");
+		}else if(renda <= 1600 && educacao == "Sim" && internet == "Sim" && qtdPessoas >= 5 && renda >= 1101) {
+			System.out.println("Prioridade 1");
+		}else {
+			System.out.println("Familia OK");
+		}
+		teste.add("\nNome: "   + aces.getNome()  + "\n" +
+                "Idade: "  + aces.getIdade() + "\n" +
+                "CPF: " + aces.getCpf() + "\n" +
+                "Quantidade Pessoas: "+ aces.getQtdPessoas() + "\n" +
+                "Renda Familiar: "+ aces.getRendaFamiliar() + "\n" +
+                "Geladeiras: " + aces.getGeladeira() + "\n" +
+                "Carros: "+ aces.getCarro()+ "\n" +
+                "Televisores: " + aces.getTelevisao()+ "\n" +
+                "Computadores: "+ aces.getComputador()+ "\n" +
+                "Educação: "+ aces.getEducacao()+ "\n" +
+                "Internet: "+ aces.getInternet() + "\n");
+		metodo2();
+	}
+	public void limpaTela() {
+		for (int i = 0; i < 50; ++i) {  
+			 System.out.println();  
+		}
+		
 	}
 }
